@@ -42,7 +42,7 @@ async function deletePreviouslyDeployedCertificate() {
    * 
    * @typedef DescribeUserCertificateListResponse
    * @prop {number} TotalCount
-   * @prop {CertificateListItem[]} CertificateList
+   * @prop {CertificateListItem[]} CertificateOrderList
    */
 
   /**
@@ -57,17 +57,17 @@ async function deletePreviouslyDeployedCertificate() {
        */
       const response = await callAliyunApi(
         "https://cas.aliyuncs.com", "2018-07-13",
-        "DescribeUserCertificateList",
+        "CertificateOrderList",
         {
           ShowSize: 50,
           CurrentPage: i
         }
       );
 
-      for (const item of response.CertificateList)
+      for (const item of response.CertificateOrderList)
         await callback(item);
 
-      currentItems += response.CertificateList.length;
+      currentItems += response.CertificateOrderList.length;
       if (currentItems === response.TotalCount) break;
     }
   }
